@@ -27,7 +27,7 @@ public class TeamService {
 		return repository.findAll();
 	}
 
-	public Team addTeam(Team team){
+	public Team add(Team team){
 		return repository.save(team);
 	}
 

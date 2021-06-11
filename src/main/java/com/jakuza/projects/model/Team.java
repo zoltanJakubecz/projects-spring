@@ -3,7 +3,9 @@ package com.jakuza.projects.model;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,9 @@ public class Team {
 
 	private String name;
 
-	@ManyToMany
+	private String teamAvatarUrl;
+
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "student_team",
 		joinColumns = @JoinColumn(name = "team_id"),
@@ -43,6 +47,9 @@ public class Team {
 	public void addStudent(Student student){
 		students.add(student);
 	}
+
+	@ManyToMany(mappedBy = "teams")
+	private Set<Project> projects = new HashSet<>();
 
 	
 }

@@ -1,11 +1,17 @@
  package com.jakuza.projects.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,16 +24,22 @@ import lombok.Setter;
  @Setter
  public class Project {
 	
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	 private String title;
+	private String title;
 
-	 private String url;
+	private String url;
 
-	 private String[] teamAvatarUrls;
+	private LocalDateTime created;
 
-	 private LocalDateTime created;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "team_project",
+		joinColumns = @JoinColumn(name = "projects_id"),
+		inverseJoinColumns = @JoinColumn(name = "team_id")
+	)
+	private Set<Team> teams = new HashSet<>();
  	
  }

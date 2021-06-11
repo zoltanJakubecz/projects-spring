@@ -37,7 +37,7 @@ public class TeamController {
 	
 	@PostMapping
 	public ResponseEntity<Team> addTeam(@RequestBody Team team){
-		return ResponseEntity.ok().body(teamService.addTeam(team));
+		return ResponseEntity.ok().body(teamService.add(team));
 	}
 
 	
