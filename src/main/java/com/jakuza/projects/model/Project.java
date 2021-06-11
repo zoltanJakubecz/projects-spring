@@ -41,5 +41,9 @@ import lombok.Setter;
 		inverseJoinColumns = @JoinColumn(name = "team_id")
 	)
 	private Set<Team> teams = new HashSet<>();
- 	
+ 
+	public void addTeam(Team team){
+		teams.add(team);
+	}
+
  }

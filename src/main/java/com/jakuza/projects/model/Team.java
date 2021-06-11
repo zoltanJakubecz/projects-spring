@@ -44,12 +44,12 @@ public class Team {
 	)
 	private Set<Student> students = new HashSet<>();
 
-	public void addStudent(Student student){
-		students.add(student);
-	}
-
 	@ManyToMany(mappedBy = "teams")
 	private Set<Project> projects = new HashSet<>();
 
+
+	public void addStudent(Student student){
+		students.add(student);
+	}
 	
 }
