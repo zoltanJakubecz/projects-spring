@@ -37,5 +37,9 @@ public class Location {
 	@JsonIgnore
 	@OneToMany(mappedBy = "location")
 	private Set<Student> students = new HashSet<>();
-	
+
+	public void addStudent(Student student){
+		students.add(student);
+	}
+
 }
