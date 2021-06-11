@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,12 +46,17 @@ public class Team {
 	)
 	private Set<Student> students = new HashSet<>();
 
-	@ManyToMany(mappedBy = "teams")
+	@JsonIgnore
+	@ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER)
 	private Set<Project> projects = new HashSet<>();
 
 
 	public void addStudent(Student student){
 		students.add(student);
+	}
+
+	public void addProject(Project project){
+		projects.add(project);
 	}
 	
 }

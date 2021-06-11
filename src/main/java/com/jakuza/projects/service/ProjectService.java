@@ -37,6 +37,7 @@ public class ProjectService {
 		Team team = teamRepository.findById(teamId).get();
 	
 		project.addTeam(team);
+		team.addProject(project);
 
 		return projectRepository.save(project);
 		 

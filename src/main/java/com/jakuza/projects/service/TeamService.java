@@ -36,6 +36,7 @@ public class TeamService {
 		Student student = studentRepository.findById(studentId).get();
 
 		team.addStudent(student);
+		student.addTeam(team);
 		return repository.save(team);
 	}
 	
