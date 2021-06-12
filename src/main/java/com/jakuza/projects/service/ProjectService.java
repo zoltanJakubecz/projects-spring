@@ -1,6 +1,7 @@
 package com.jakuza.projects.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.jakuza.projects.model.Project;
 import com.jakuza.projects.model.Team;
@@ -31,6 +32,39 @@ public class ProjectService {
 	public Project add(Project project){
 		return projectRepository.save(project);
 	}
+
+	
+	public Project getOne(Long id){
+		Project location = projectRepository
+														.findById(id)
+														.orElse(null);
+		return location;
+	}
+
+	
+	public Project update(Long id, Project project){
+		return projectRepository.findById(id)
+			.map((proj) -> {
+				proj.setTitle(project.getTitle());
+				proj.setUrl(project.getUrl());
+				proj.setCreated(project.getCreated());
+				return projectRepository.save(proj);
+			})
+		.orElse(null);
+	}
+
+
+	public boolean remove(Long id){
+
+		Optional<Project> project = projectRepository.findById(id);
+														
+		if(project.isPresent()){
+			projectRepository.delete(project.get());
+			return true;
+		}
+		return false;
+	}
+
 
 	public Project addTeamToProject(Long projectId, Long teamId){
 		Project project = projectRepository.findById(projectId).get();
