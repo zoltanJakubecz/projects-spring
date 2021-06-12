@@ -1,5 +1,6 @@
 package com.jakuza.projects.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class ProjectService {
 	}
 
 	public Project add(Project project){
+		project.setCreated(LocalDateTime.now());
 		return projectRepository.save(project);
 	}
 
