@@ -38,7 +38,7 @@ public class StudentService {
 		
 		student.assignLocation(location);
 		location.addStudent(student);
-		return student;
+		return studentRepository.save(student);
 	}
 
 }
