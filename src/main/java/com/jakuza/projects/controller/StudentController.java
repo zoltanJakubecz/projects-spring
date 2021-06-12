@@ -6,6 +6,7 @@ import com.jakuza.projects.model.Student;
 import com.jakuza.projects.service.StudentService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,25 @@ public class StudentController {
 	public ResponseEntity<Student> addTeam(@RequestBody Student student){
 		return ResponseEntity.ok().body(studentService.add(student));
 	}
+
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Student> getOne(@PathVariable Long id){
+		return ResponseEntity.ok().body(studentService.getOne(id));
+	}
+
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student student){
+		return ResponseEntity.ok().body(studentService.update(id, student));
+	}
+
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Boolean> delete(@PathVariable Long id){
+		return ResponseEntity.ok().body(studentService.remove(id));
+	}
+
 
 
 	@PutMapping("{studentId}/location/{locationId}")

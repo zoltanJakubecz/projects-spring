@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class DataDTO {
-
+	
+	@Builder.Default
 	private List<ProjectDTO> projects = new ArrayList<>();
 
 

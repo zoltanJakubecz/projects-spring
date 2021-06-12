@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 /**
 * ProjectDTO
@@ -20,7 +19,7 @@ public class ProjectDTO {
 
 	private String title;
 	private String url;
-	@Singular
+	@Builder.Default
 	private List<String> teamAvatarUrls = new ArrayList<>();
 	private String created;
 
