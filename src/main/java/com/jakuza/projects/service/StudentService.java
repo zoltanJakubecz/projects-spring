@@ -32,6 +32,10 @@ public class StudentService {
 
 
 	public Student add(Student student){
+		Boolean existsEmail = studentRepository.selectExistsEmail(student.getEmail());
+		if(existsEmail){
+			throw new RuntimeException("Email " + student.getEmail() + " taken");
+		}
 		student.validate();
 		return studentRepository.save(student);
 	}
