@@ -2,6 +2,7 @@ package com.jakuza.projects.model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,27 +57,29 @@ public class Student {
 		teams.add(team);
 	}
 
+	
 	public void assignLocation(Location location){
 		this.location = location;
 	}
 
-	public void addExperience(String s, Integer i){
-		validateExperience(s,i);
-		this.experiencePoints.put(s, i);
-				
-	}
 
 	public void validate(){
 		validateName();
 		validateEmail();
+		validateExperience();
 	}
+
 
 	public void validateName(){
+
 		if(this.name == null || this.name.isBlank())
 			throw new RuntimeException("Name cannot be null or empty");
+
 	}
 
+
 	public void validateEmail(){
+
 		if(this.email == null || this.email.isBlank()){
 			throw new RuntimeException("Name cannot be null or empty");
 		}
@@ -86,12 +89,19 @@ public class Student {
 						if(!matcher.matches()){
 							throw new RuntimeException("Wrong email");
 						}
+
 	}
 
-	public void validateExperience(String s, Integer i){
-		if(s == null || s.isBlank())
-			throw new RuntimeException("Experience cannot be null or empty");
-		if(!(i >= 1 && i<=100))
+
+	public void validateExperience(){
+
+		for(Map.Entry<String, Integer> entry: this.experiencePoints.entrySet()){
+			if(entry.getKey() == null || entry.getKey().isBlank())
+				throw new RuntimeException("Experience cannot be null or empty");
+			if(!(entry.getValue() >= 1 && entry.getValue()<=100))
 				throw new RuntimeException("Experience points must be between 1 and 100");
+		}
+
 	}
+
 }
