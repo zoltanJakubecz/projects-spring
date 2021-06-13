@@ -71,9 +71,10 @@ public class StudentService {
 
 
 	public Student assignLocationToStudent(Long studentId, Long locationId){
-		Location location = locationRepository.findById(locationId).get();
-		Student student = studentRepository.findById(studentId).get();
+		Location location = locationRepository.findById(locationId).orElse(null);
+		Student student = studentRepository.findById(studentId).orElse(null);
 		
+		if(location == null || student == null ) throw new RuntimeException("Wrong id given");
 		student.assignLocation(location);
 		location.addStudent(student);
 		return studentRepository.save(student);
