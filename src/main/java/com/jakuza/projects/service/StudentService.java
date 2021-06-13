@@ -61,13 +61,12 @@ public class StudentService {
 
 	public boolean remove(Long id){
 
-		Optional<Student> student = studentRepository.findById(id);
-														
-		if(student.isPresent()){
-			studentRepository.delete(student.get());
-			return true;
+		if(!studentRepository.existsById(id)) {
+			throw new RuntimeException(
+					"Student with id " + id + " does not exists");
 		}
-		return false;
+		studentRepository.deleteById(id);
+		return true;
 	}
 
 
