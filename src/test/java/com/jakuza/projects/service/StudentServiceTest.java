@@ -1,37 +1,38 @@
 package com.jakuza.projects.service;
 
+import com.jakuza.projects.model.Student;
 import com.jakuza.projects.repository.LocationRepository;
 import com.jakuza.projects.repository.StudentRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 
+@ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
 
     @Mock
     private StudentRepository studentRepository;
     @Mock
     private LocationRepository locationRepository;
-    private AutoCloseable autoCloseable;
     private StudentService studentService;
 
     @BeforeEach
     void setUp() {
-        autoCloseable = MockitoAnnotations.openMocks(this);
         studentService = new StudentService(studentRepository, locationRepository);
     }
 
-    @AfterEach
-    void tearDown() throws Exception {
-        autoCloseable.close();
-    }
 
     @Test
     void canGetAllStudents() {
@@ -40,28 +41,64 @@ class StudentServiceTest {
     }
 
     @Test
-    @Disabled
     void add() {
+        Student student = new Student();
+        student.setName("Jani");
+        student.setEmail("jani@kukutyin.hu");
+        studentService.add(student);
+        ArgumentCaptor<Student> studentArgumentCaptor =
+                ArgumentCaptor.forClass(Student.class);
+
+        verify(studentRepository)
+                .save(studentArgumentCaptor.capture());
+
+        Student capturedStudent = studentArgumentCaptor.getValue();
+
+        assertThat(capturedStudent).isEqualTo(student);
     }
 
     @Test
-    @Disabled
-    void getOne() {
+    void willThrowWhenEmailIsTaken() {
+
+        Student student = new Student();
+        student.setName("Jani");
+        student.setEmail("jani@kukutyin.hu");
+
+        given(studentRepository.selectExistsEmail(anyString()))
+                .willReturn(true);
+
+        assertThatThrownBy(() -> studentService.add(student))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Email " + student.getEmail() + " taken");
+
+        verify(studentRepository, never()).save(any());
+
+    }
+
+
+    @Test
+    void willDeleteStudent() {
+        long id = 10;
+        given(studentRepository.existsById(id))
+                .willReturn(true);
+        studentService.remove(id);
+        verify(studentRepository).deleteById(id);
     }
 
     @Test
-    @Disabled
-    void update() {
+    void willThrowWhenDeleteStudentNotFound() {
+        // given
+        long id = 10;
+        given(studentRepository.existsById(id))
+                .willReturn(false);
+        // when
+        // then
+        assertThatThrownBy(() -> studentService.remove(id))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Student with id " + id + " does not exists");
+
+        verify(studentRepository, never()).deleteById(any());
     }
 
-    @Test
-    @Disabled
-    void remove() {
-    }
-
-    @Test
-    @Disabled
-    void assignLocationToStudent() {
-    }
 
 }
