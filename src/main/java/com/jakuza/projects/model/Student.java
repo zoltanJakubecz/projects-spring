@@ -3,6 +3,8 @@ package com.jakuza.projects.model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -58,4 +60,38 @@ public class Student {
 		this.location = location;
 	}
 
+	public void addExperience(String s, Integer i){
+		validateExperience(s,i);
+		this.experiencePoints.put(s, i);
+				
+	}
+
+	public void validate(){
+		validateName();
+		validateEmail();
+	}
+
+	public void validateName(){
+		if(this.name == null || this.name.isBlank())
+			throw new RuntimeException("Name cannot be null or empty");
+	}
+
+	public void validateEmail(){
+		if(this.email == null || this.email.isBlank()){
+			throw new RuntimeException("Name cannot be null or empty");
+		}
+		String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    		    Pattern pattern =Pattern.compile(regex);
+        		Matcher matcher = pattern.matcher(this.email);
+						if(!matcher.matches()){
+							throw new RuntimeException("Wrong email");
+						}
+	}
+
+	public void validateExperience(String s, Integer i){
+		if(s == null || s.isBlank())
+			throw new RuntimeException("Experience cannot be null or empty");
+		if(!(i >= 1 && i<=100))
+				throw new RuntimeException("Experience points must be between 1 and 100");
+	}
 }

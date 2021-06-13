@@ -32,6 +32,7 @@ public class StudentService {
 
 
 	public Student add(Student student){
+		student.validate();
 		return studentRepository.save(student);
 	}
 	
