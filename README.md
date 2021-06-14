@@ -5,7 +5,7 @@
 This application manages users and teams who work on projects. A user can be a member of more than one
 teams, and a team can work on more than one projects at the same time. Every user has a location which they work from and every user has experience points (between 1 and 100) in several technologies.
 
-###Used technologies
+### Used technologies
 
 * Java 8
 * Maven
@@ -18,7 +18,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 
 ## Classes
 
-###Student
+### Student
 
 
 * name - Not null or empty string
@@ -28,7 +28,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 * experiencePoints - HashMap, String Integer pairs storeing experience points
 
 
-###Team
+### Team
 
 
 * name - Not null or empty string
@@ -37,7 +37,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 * projects - list of projects the team is working on
 
 
-###Project
+### Project
 
 * title - Not null or empty string
 * url - remote store address of the project
@@ -45,35 +45,35 @@ teams, and a team can work on more than one projects at the same time. Every use
 * teams - list of teams work on the project
 
 
-###Location
+### Location
 
 * name - Not null or empty string
 * address - Not null or empty string
 * students - List of students work from this location
 
 
-##Data transfer objects (DTO)
+## Data transfer objects (DTO)
 
-###ProjectDTO
+### ProjectDTO
 
 * title - string
 * url - string
 * teamAvatars - List of string
 * created - Timestamp
 
-###DataDTO
+### DataDTO
 
 * projects - List of ProhectDTO
 
 
-##Relations between classes
+## Relations between classes
 
 * team - student -> Many to many relation
 * team - project -> Many to many relation
 * student - location -> One to many relation
 
-##API endpoints
-###Student
+## API endpoints
+### Student
 /students
 
 * get - List all of stored student
@@ -89,7 +89,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 
 * put - assign a location to a student
 
-###Team
+### Team
 /teams
 
 * get - List of teams
@@ -105,7 +105,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 
 * put - Add studet to team
 
-###Project
+### Project
 
 /projects
 
@@ -122,7 +122,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 
 * put - Assign a team to a project
 
-###Location
+### Location
 
 /location
 
@@ -136,7 +136,7 @@ teams, and a team can work on more than one projects at the same time. Every use
 * delete - Delete a location
 
 
-###Data
+### Data
 
 /data
 

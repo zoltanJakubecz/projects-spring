@@ -59,7 +59,6 @@ public class StudentController {
 	}
 
 
-
 	@PutMapping("{studentId}/location/{locationId}")
 	public ResponseEntity<Student> assignLocationToStuden(
 				@PathVariable Long studentId,

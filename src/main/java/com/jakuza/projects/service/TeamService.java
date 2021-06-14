@@ -18,15 +18,18 @@ public class TeamService {
 	private final TeamRepository repository;
 	private final StudentRepository studentRepository;
 
+
 	public TeamService(TeamRepository repository, StudentRepository studentRepository){
 		this.repository = repository;
 		this.studentRepository = studentRepository;
 	}
 
+	
 	public List<Team> getAll(){
 		return repository.findAll();
 	}
 
+	
 	public Team add(Team team){
 		return repository.save(team);
 	}
@@ -51,7 +54,6 @@ public class TeamService {
 
 
 	public boolean remove(Long id){
-
 		if(!repository.existsById(id)) {
 			throw new RuntimeException(
 					"Team with id " + id + " does not exists");
@@ -64,7 +66,6 @@ public class TeamService {
 	public Team addStudentToTeam(Long teamId, Long studentId){
 		Team team = repository.findById(teamId).get();
 		Student student = studentRepository.findById(studentId).get();
-
 		team.addStudent(student);
 		student.addTeam(team);
 		return repository.save(team);

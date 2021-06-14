@@ -55,6 +55,7 @@ public class Team {
 		students.add(student);
 	}
 
+	
 	public void addProject(Project project){
 		projects.add(project);
 	}

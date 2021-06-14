@@ -4,7 +4,7 @@
 * Worth to note
 
 ## Timetable
-###6.11 
+### 6.11 
 
 * 6:00 - 8:00
 
@@ -36,7 +36,7 @@
  Actual:  
   - All the plans done but took more time.
 
-###6.12
+### 6.12
 
 * 09:00 - 11:00
 
@@ -56,7 +56,7 @@
    Actual:  
   - move validation for tomorrow	
 
-###6.13
+### 6.13
 
   Planned:
   - Validation and write tests
@@ -66,7 +66,7 @@
   - student repository and service covered with tests
 
   
-###6.14
+### 6.14
 
   Planned:
   
