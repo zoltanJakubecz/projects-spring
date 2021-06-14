@@ -31,6 +31,36 @@ public class TeamService {
 		return repository.save(team);
 	}
 
+
+	public Team getOne(Long id){
+		return repository
+									.findById(id)
+									.orElse(null);
+	}
+
+
+	public Team update(Long id, Team team){
+		return repository.findById(id)
+			.map((tm) -> {
+				tm.setName(team.getName());
+				tm.setTeamAvatarUrl(team.getTeamAvatarUrl());
+				return repository.save(tm);
+			})
+		.orElse(null);
+	}
+
+
+	public boolean remove(Long id){
+
+		if(!repository.existsById(id)) {
+			throw new RuntimeException(
+					"Team with id " + id + " does not exists");
+		}
+		repository.deleteById(id);
+		return true;
+	}
+
+
 	public Team addStudentToTeam(Long teamId, Long studentId){
 		Team team = repository.findById(teamId).get();
 		Student student = studentRepository.findById(studentId).get();

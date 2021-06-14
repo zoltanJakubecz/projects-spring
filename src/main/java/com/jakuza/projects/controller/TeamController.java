@@ -6,6 +6,7 @@ import com.jakuza.projects.model.Team;
 import com.jakuza.projects.service.TeamService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,23 @@ public class TeamController {
 		return ResponseEntity.ok().body(teamService.add(team));
 	}
 
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Team> getOne(@PathVariable Long id){
+		return ResponseEntity.ok().body(teamService.getOne(id));
+	}
+
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Team> update(@PathVariable Long id, @RequestBody Team team){
+		return ResponseEntity.ok().body(teamService.update(id, team));
+	}
+
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Boolean> delete(@PathVariable Long id){
+		return ResponseEntity.ok().body(teamService.remove(id));
+	}
 	
 	@PutMapping("/{teamId}/student/{studentId}")
 	public ResponseEntity<Team> addStudentToTeam(
