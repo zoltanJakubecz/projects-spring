@@ -42,8 +42,17 @@ import lombok.Setter;
 	)
 	private Set<Team> teams = new HashSet<>();
  
+	
 	public void addTeam(Team team){
 		teams.add(team);
 	}
 
- }
+
+	
+	public void validateName(){
+
+		if(this.title == null || this.title.isBlank())
+			throw new RuntimeException("Project title cannot be null or empty");
+
+	}
+}

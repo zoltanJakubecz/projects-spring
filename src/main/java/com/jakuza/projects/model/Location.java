@@ -43,4 +43,11 @@ public class Location {
 		students.add(student);
 	}
 
+
+	public void validateName(){
+
+		if(this.name == null || this.name.isBlank())
+			throw new RuntimeException("Name cannot be null or empty");
+
+	}
 }

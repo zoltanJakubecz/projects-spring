@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 /**
 * TeamService
 */
+
 @Service
 public class TeamService {
 		
@@ -31,6 +32,7 @@ public class TeamService {
 
 	
 	public Team add(Team team){
+		team.validateName();
 		return repository.save(team);
 	}
 

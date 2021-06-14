@@ -41,7 +41,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void add() {
+    void canAddNewStudent() {
         Student student = new Student();
         student.setName("Jani");
         student.setEmail("jani@kukutyin.hu");

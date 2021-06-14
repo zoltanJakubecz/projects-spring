@@ -59,5 +59,12 @@ public class Team {
 	public void addProject(Project project){
 		projects.add(project);
 	}
+
+
+	public void validateName(){
+
+		if(this.name == null || this.name.isBlank())
+			throw new RuntimeException("Name cannot be null or empty");
+	}
 	
 }
